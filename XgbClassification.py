@@ -63,8 +63,8 @@ def plot_corrm(data, variables, title, path):
     corr_matrix = data[variables].corr
     plt.imshow(corr_matrix, cmap='viridis', origin='upper', vmin=-1, vmax=1)
     plt.colorbar()
-    plt.xticks(range(len(variables)*2), variables*2, rotation=45)
-    plt.yticks(range(len(variables)*2), variables*2)
+    plt.xticks(range(len(variables)*2), variables, rotation=45)
+    plt.yticks(range(len(variables)*2), variables)
     plt.title(title)
     plt.savefig(path)
 
