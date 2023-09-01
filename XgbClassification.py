@@ -94,7 +94,7 @@ def main():
         print("File not found:", path_sgn)
     else:
     # Open the ROOT file
-        data_sgn = uproot.open(path_sgn)
+        fileS = uproot.open(path_sgn)
 
     # Check if bkg file exists
     path_bkg = '/user/r/rodrigommf/RodrigoSummer2023/BPBackground.root'
@@ -102,7 +102,7 @@ def main():
         print("File not found:", path_bkg)
     else:
     # Open the ROOT file
-        data_bkg = uproot.open(path_bkg)
+        fileB = uproot.open(path_bkg)
 
     signal,background = prepdata(fileS,fileB,opt.ptmin,opt.ptmax)
     
@@ -112,6 +112,9 @@ def main():
 
     fullstages=[0,2,4,7,8,9,11,12,14,15]
     fullstagename=varset(fullstages)
+
+
+    
     
     x=pd.concat([signal_var,background_var],axis=0,ignore_index=True)
     
