@@ -58,6 +58,15 @@ def prepdata(fileS,fileB,ptmin, ptmax):
     background_cut=background[cutB]
 
     return signal_cut,background_cut
+    
+def plot_corrm(data, variables, title, path):
+    corr_matrix = data[variables].corr
+    plt.imshow(corr_matrix, cmap='viridis', origin='upper', vmin=-1, vmax=1)
+    plt.colorbar()
+    plt.xticks(range(len(variables)*2), variables*2, rotation=45)
+    plt.yticks(range(len(variables)*2), variables*2)
+    plt.title(title)
+    plt.savefig(path)
 
 def plot(epochs, plottable, xlabel="Epochs", ylabel='', name='',label=None):
     plt.clf()
@@ -113,9 +122,10 @@ def main():
     fullstages=[0,2,4,7,8,9,11,12,14,15]
     fullstagename=varset(fullstages)
 
+    #plot correlation matrix heatmap    
+    plot_corrm(signal, fullstagename, "Correlation Matrix - Signal", "/user/r/rodrigommf/RodrigoSummer2023/plots/correlation_sgn_matrix.pdf")
+    plot_corrm(background, fullstagename, "Correlation Matrix - Signal", "/user/r/rodrigommf/RodrigoSummer2023/plots/correlation_sgn_matrix.pdf")
 
-    
-    
     x=pd.concat([signal_var,background_var],axis=0,ignore_index=True)
     
     y=pd.concat([signal["tag"],background["tag"]],ignore_index=True)
