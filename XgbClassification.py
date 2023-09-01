@@ -86,12 +86,24 @@ def main():
                         choices= ["depthwise", "lossguide"], default='lossguide')
     opt = parser.parse_args()
     
+
     print("files")
-    fileS = uproot.open("/lstore/cms/simao/sample/BPMC_3_60_small2.root")
-    fileB = uproot.open("/lstore/cms/simao/sample/BPData_3_60_small2.root")
-    #fileS=uproot.open("~/Desktop/UNI/LIP/mnt/data/BPMC_3_60.root")
-    #fileB=uproot.open("~/Desktop/UNI/LIP/mnt/data/BPData_3_60.root")
-    
+    # Check if signal file exists
+    path_sgn = '/user/r/rodrigommf/RodrigoSummer2023/BPSignal.root'
+    if not os.path.isfile(path_sgn):
+        print("File not found:", path_sgn)
+    else:
+    # Open the ROOT file
+        data_sgn = uproot.open(path_sgn)
+
+    # Check if bkg file exists
+    path_bkg = '/user/r/rodrigommf/RodrigoSummer2023/BPBackground.root'
+    if not os.path.isfile(path_bkg):
+        print("File not found:", path_bkg)
+    else:
+    # Open the ROOT file
+        data_bkg = uproot.open(path_bkg)
+
     signal,background = prepdata(fileS,fileB,opt.ptmin,opt.ptmax)
     
     stage=varset(opt.stages)
